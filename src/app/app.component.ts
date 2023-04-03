@@ -9,6 +9,9 @@ import { Todo } from './Todo';
 export class AppComponent {
   todos:Todo[]=[];
   newTodo:string;
+  updateflag:boolean=false
+  newupdate:string
+  updateid:number
 
 
   saveTodo(){
@@ -16,7 +19,6 @@ export class AppComponent {
 
       let todo=new Todo();
       todo.name=this.newTodo
-      // todo.isCompleted=true
       this.todos.push(todo);
       this.newTodo='';
 
@@ -30,5 +32,22 @@ export class AppComponent {
 
   remove(id:number){
     this.todos=this.todos.filter((v,i)=>i !==id);
+  }
+
+  
+  updateTodo(){
+    if(this.newupdate){
+      let todo=new Todo();
+      let id=this.updateid
+      todo.name=this.newupdate
+      this.todos[id]=todo
+      this.newupdate=""
+      this.updateflag=false
+    }
+  }
+
+  edit(id:number){
+    this.updateflag=true
+    this.updateid=id
   }
 }
